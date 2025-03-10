@@ -23,8 +23,8 @@ export default function RAIR(){
     }, [])
 
     return (
-        <div id='main'>
-            <h1>Reddit AI Responder</h1><br/>
+        <div id='main' className='mainDiv'>
+            <h1 className="heading">Reddit AI Responder</h1><br/>
             {!isAuthed ? <button onClick={loginClicked}>Click Here to login with Reddit</button> : ''}
             {isAuthed ? <RAIRTopPosts token={accessToken} />: ''}
             

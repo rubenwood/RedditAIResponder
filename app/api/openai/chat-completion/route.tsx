@@ -24,7 +24,7 @@ async function getCompletionForPost(redditPostData: any, redditPostCommentData: 
                         You should also stick to the response type, 
                         i.e; if the response type is "funny" your should make a funny, comedic response, 
                         if the response type is "factual" it should be serious and factual.
-                        You will also recieve 3 comments from each post, use this to gain extra context 
+                        You will also receive some comments from each post, use this to gain extra context 
                         and tailor your response more accurately to the current tone and discussions`;
 
     const userContent = `Please suggest a good response for this reddit post:

@@ -1,4 +1,4 @@
-"use client"
+
 import { useEffect, useState } from 'react';
 import { getTopPosts, getPostAndComments, getChatCompletionForPost } from '../rair-fetch/rair-fetch';
 import { RAIRCommentsBlock } from './comments-block-component';
@@ -7,6 +7,7 @@ function TopPost(props: any){
     const [postAndComments, setPostAndComments]= useState<any>(null);
     const [commentsData, setCommentsData]= useState<any>(null);
     const [replySuggestion, setReplySuggestion] = useState<string>('');
+    const [replyLoading, setReplyLoading] = useState(false);
 
     const callGetPostAndComments = async () => {
         const postAndComm = await getPostAndComments(props.data.id, props.token.access_token);
@@ -17,9 +18,10 @@ function TopPost(props: any){
     }    
     
     const getReplySuggestion = async () =>{
-        console.log(props.data)
+        setReplyLoading(true);
         const completion = await getChatCompletionForPost(props.data, commentsData);
-        console.log(completion);
+        setReplyLoading(false);
+        //console.log(completion);
         setReplySuggestion(completion.content);
     }
 
@@ -38,10 +40,13 @@ function TopPost(props: any){
             <b>Author:</b>{props.data.author}<br/>
             <button onClick={getReplySuggestion}>Get Reply Suggestion</button><br/>
             <br/>
-            {replySuggestion}
+            <div className='replyContainer'>{replyLoading ? 'generating...' : replySuggestion}</div>
             <br/>
             <br/>
-            <b>Comments:</b>{commentsData != null ? <RAIRCommentsBlock postId={props.data.id} commentsData={commentsData} /> : ''}<br/>
+            <b>Comments:</b>{commentsData != null ? <RAIRCommentsBlock 
+                                                        postId={props.data.id} 
+                                                        commentsData={commentsData} /> : ''}
+            <br/>
             <br/>
             <br/>
         </div>

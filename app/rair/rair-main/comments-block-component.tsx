@@ -3,32 +3,16 @@ import Link from "next/link";
 function RAIRComment(props: any){
     return (
         <>
-            <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
-                <thead>
-                    <tr>
-                        <td style={{ width: "20%", fontWeight: "bold", border: "1px solid #ddd", padding: "8px" }}>Author</td>
-                        <td style={{ width: "60%", fontWeight: "bold", border: "1px solid #ddd", padding: "8px" }}>Comment</td>
-                        <td style={{ width: "20%", fontWeight: "bold", border: "1px solid #ddd", padding: "8px" }}>Link</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style={{ width: "20%", border: "1px solid #ddd", padding: "8px" }}>{props.author}</td>
-                        <td style={{ width: "60%", border: "1px solid #ddd", padding: "8px", wordWrap: "break-word", overflowWrap: "break-word", whiteSpace: "normal" }}>
-                            {props.body}
-                        </td>
-                        <td style={{ width: "20%", border: "1px solid #ddd", padding: "8px" }}>
-                            <Link href={props.link}><u>Link</u></Link>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <tr>
+                <td>{props.author}</td>
+                <td>{props.body}</td>
+                <td><Link href={props.link}>Link</Link></td>
+            </tr>
         </>
     )
 }
 
-export function RAIRCommentsBlock(props: any){
-
+function RAIRCommentRows(props: any){
     const formatComments = () =>{
         let formattedCommentList = [];
         for(const comment of props.commentsData.comments){
@@ -41,10 +25,26 @@ export function RAIRCommentsBlock(props: any){
         }
         return formattedCommentList;
     }
+    return (<>{formatComments()}</>)
+}
 
+export function RAIRCommentsBlock(props: any){
     return (
-        <div>
-            {formatComments()}
+        <div className='table-container'>
+            <div>
+            <table className='table'>
+                <thead>
+                    <tr>
+                        <td><b>Author</b></td>
+                        <td><b>Comment</b></td>
+                        <td><b>Link</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <RAIRCommentRows commentsData={props.commentsData} />
+                </tbody>
+            </table>
+        </div>
         </div>
     )
 }
