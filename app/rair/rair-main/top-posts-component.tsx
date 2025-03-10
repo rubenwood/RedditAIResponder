@@ -38,7 +38,7 @@ function TopPost(props: any){
             <b>Up votes:</b>{props.data.ups}<br/>
             <b>Up votes:</b>{props.data.upvote_ratio}<br/>
             <b>Author:</b>{props.data.author}<br/>
-            <button onClick={getReplySuggestion}>Get Reply Suggestion</button><br/>
+            <button className='button' onClick={getReplySuggestion}>Get Reply Suggestion</button><br/>
             <br/>
             <div className='replyContainer'>{replyLoading ? 'generating...' : replySuggestion}</div>
             <br/>
