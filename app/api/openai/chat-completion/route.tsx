@@ -16,7 +16,6 @@ async function getCompletionForPost(redditPostData: any, redditPostCommentData: 
     //let commentBodies = [];
     let commentsString = '';
     for(const commentData of redditPostCommentData.comments){
-        //console.log(commentData.data.body);
         //commentBodies.push(commentData.data.body);
         commentsString += `Comment: ${commentData.data.body}\n`;
     }
@@ -37,7 +36,7 @@ async function getCompletionForPost(redditPostData: any, redditPostCommentData: 
                         ${commentsString}
                         Response type: topical & witty`;
 
-    console.log(userContent);
+    //console.log(userContent);
 
     const tools: ChatCompletionTool[] = [{
         "type": "function",
@@ -49,7 +48,7 @@ async function getCompletionForPost(redditPostData: any, redditPostCommentData: 
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "A subject of interest to search for e.g. Google, Politics, Ukraine"
+                        "description": "A subject of interest, extracted from the post & comments, to search for e.g. War in Ukraine"
                     }
                 },
                 "required": [
@@ -76,13 +75,14 @@ async function getCompletionForPost(redditPostData: any, redditPostCommentData: 
         tools,
         store: true,
     });
-    getNews('War in Ukraine');
+    
+    //getNews('War in Ukraine');
     console.log(completion.choices[0].message);
     return completion.choices[0].message;
 }
 
 async function getNews(query: string){
-    //All articles mentioning Apple from yesterday, sorted by popular publishers first
+    // All articles mentioning query from yesterday, sorted by popular publishers first
     console.log("getting news...");
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
