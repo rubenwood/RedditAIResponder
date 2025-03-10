@@ -5,14 +5,15 @@ export default function RAIROACallback(){
     const completeLogin = async () => {
         let params = new URLSearchParams(document.location.search);
         let redirectURI = window.location.href.split('?')[0];
-        console.log(redirectURI);
         let codeParam = params.get("code");
-        console.log(codeParam);
         if(codeParam != null){
             const accToken = await getAccessToken(codeParam, redirectURI);
             console.log(accToken);
+            // storing in local for now, just for development
+            // TODO: remove this and use API endpoints to retrieve token
+            localStorage.setItem('accessToken', JSON.stringify(accToken));
+            window.location.href = '/rair/rair-main';
         }
-        
     }
 
     return (

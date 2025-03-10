@@ -16,3 +16,21 @@ export async function getAccessToken(userCode: string, redirectURI: string){
         console.error(e);
     }
 }
+
+export async function getTopPosts(token: any){
+    const url='https://oauth.reddit.com/r/all/top';
+    try{
+        const resp = await fetch(url,
+            {
+                method:'GET',
+                headers:{
+                    "Authorization": `Bearer ${token}`,
+                    'Content-Type':'application/json'
+                }
+            });
+        const response = await resp.json();
+        return response;
+    }catch(e){
+        console.error(e);
+    }
+}
