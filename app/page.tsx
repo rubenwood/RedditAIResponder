@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
           <li>Displays them here</li>
           <li>Suggests a response</li>
         </ol>
+        <Link href="/rair/rair-main">Begin Here</Link>
       </main>
     </div>
   );
