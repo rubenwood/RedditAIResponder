@@ -18,7 +18,7 @@ function RAIRComment(props: any){
                             {props.body}
                         </td>
                         <td style={{ width: "20%", border: "1px solid #ddd", padding: "8px" }}>
-                            <Link href={props.link}>Link</Link>
+                            <Link href={props.link}><u>Link</u></Link>
                         </td>
                     </tr>
                 </tbody>

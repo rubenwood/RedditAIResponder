@@ -52,7 +52,7 @@ export async function getPostAndComments(postId: string, token: any){
     }
 }
 
-export async function getChatCompletionForPost(redditPostData: any){
+export async function getChatCompletionForPost(redditPostData: any, redditPostCommentData: any){
     console.log("RPD FRONT");
     console.log(redditPostData);
     const url='/api/openai/chat-completion';
@@ -63,7 +63,7 @@ export async function getChatCompletionForPost(redditPostData: any){
                 headers:{
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify({ redditPostData })
+                body:JSON.stringify({ redditPostData, redditPostCommentData })
             });
         const response = await resp.json();
         return response;

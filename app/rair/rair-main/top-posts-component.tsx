@@ -6,6 +6,7 @@ import { RAIRCommentsBlock } from './comments-block-component';
 function TopPost(props: any){
     const [postAndComments, setPostAndComments]= useState<any>(null);
     const [commentsData, setCommentsData]= useState<any>(null);
+    const [replySuggestion, setReplySuggestion] = useState<string>('');
 
     const callGetPostAndComments = async () => {
         const postAndComm = await getPostAndComments(props.data.id, props.token.access_token);
@@ -17,8 +18,9 @@ function TopPost(props: any){
     
     const getReplySuggestion = async () =>{
         console.log(props.data)
-        const completion = await getChatCompletionForPost(props.data);
+        const completion = await getChatCompletionForPost(props.data, commentsData);
         console.log(completion);
+        setReplySuggestion(completion.content);
     }
 
     useEffect(() => {
@@ -34,9 +36,12 @@ function TopPost(props: any){
             <b>Up votes:</b>{props.data.ups}<br/>
             <b>Up votes:</b>{props.data.upvote_ratio}<br/>
             <b>Author:</b>{props.data.author}<br/>
+            <button onClick={getReplySuggestion}>Get Reply Suggestion</button><br/>
+            <br/>
+            {replySuggestion}
+            <br/>
+            <br/>
             <b>Comments:</b>{commentsData != null ? <RAIRCommentsBlock postId={props.data.id} commentsData={commentsData} /> : ''}<br/>
-            <button onClick={getReplySuggestion}>Get Reply Suggestion</button>
-            
             <br/>
             <br/>
         </div>
